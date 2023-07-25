@@ -17,19 +17,19 @@ const showTasks = async () => {
     }
     const allTasks = tasks
       .map((task) => {
-        const { completed, _id: taskID, name } = task
-        return `<div class="single-task ${completed && 'task-completed'}">
-<h5><span><i class="far fa-check-circle"></i></span>${name}</h5>
+        const { isCompleted, _id: id, task } = task
+        return `<div class="single-task ${isCompleted && 'task-isCompleted'}">
+<h5><span><i class="far fa-check-circle"></i></span>${task}</h5>
 <div class="task-links">
 
 
 
 <!-- edit link -->
-<a href="task.html?id=${taskID}"  class="edit-link">
+<a href="task.html?id=${id}"  class="edit-link">
 <i class="fas fa-edit"></i>
 </a>
 <!-- delete btn -->
-<button type="button" class="delete-btn" data-id="${taskID}">
+<button type="button" class="delete-btn" data-id="${id}">
 <i class="fas fa-trash"></i>
 </button>
 </div>
@@ -67,10 +67,10 @@ tasksDOM.addEventListener('click', async (e) => {
 
 formDOM.addEventListener('submit', async (e) => {
   e.preventDefault()
-  const name = taskInputDOM.value
+  const task = taskInputDOM.value
 
   try {
-    await axios.post('/api/v1/tasks', { name })
+    await axios.post('/api/v1/tasks', { task })
     showTasks()
     taskInputDOM.value = ''
     formAlertDOM.style.display = 'block'
